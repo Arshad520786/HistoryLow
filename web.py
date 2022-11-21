@@ -13,37 +13,40 @@ if not os.path.isfile('./listPrice.csv'):
 
 with open(r"listPrice.csv", mode = "r") as file:
     lines = file.readlines()
-    print(lines)
     prices = dict()
     for line in lines:
-        print(line)
-        prices[line[0]] = line[1]
-    
-    
+        temp = line.split(",")
+        prices[temp[0]] = temp[1]
+
+
+URLlist = [
+"https://www.momoshop.com.tw/goods/GoodsDetail.jsp?i_code=10173348&Area=search&mdiv=403&oid=1_1&cid=index&kw=%E5%B0%8F%E7%B1%B3%E6%89%8B%E7%92%B06",
+"https://www.momoshop.com.tw/goods/GoodsDetail.jsp?i_code=10526883&Area=search&mdiv=403&oid=1_1&cid=index&kw=iphone%2014%20pro%20max",
+"https://www.momoshop.com.tw/goods/GoodsDetail.jsp?i_code=10608572&Area=search&mdiv=403&oid=1_3&cid=index&kw=XM5",
+"https://www.momoshop.com.tw/goods/GoodsDetail.jsp?i_code=10666753&Area=search&mdiv=403&oid=1_7&cid=index&kw=dyson"
+]
+
+priceList = list()
 
 driver = webdriver.Chrome()
 
-url = "https://www.momoshop.com.tw/goods/GoodsDetail.jsp?i_code=10173348&Area=search&mdiv=403&oid=1_1&cid=index&kw=%E5%B0%8F%E7%B1%B3%E6%89%8B%E7%92%B06"
+for url in URLlist:
 
-driver.get(url)
-
-block = driver.find_element(By.CLASS_NAME, "special")
-
-price = re.search("[0-9]+", block.text).group(0)
-
-print(price)
-
-if url not in prices.keys():
-    print("New data established")
-    prices[url] = price
-else:
-    if (price <= prices[url]):
-        print("New price same or below history low price :", price)
+    driver.get(url)
+    block = driver.find_element(By.CLASS_NAME, "special")
+    price = re.search("[0-9,]+", block.text).group(0)
+    price = price.replace(",","")
+    if url not in prices.keys():
+        print("New data established")
         prices[url] = price
+    else:
+        if(price <= prices[url]):
+            print("New price same or below history low price :", price)
+            prices[url] = price
 
-print("----------------------")
-print(prices)
+
+
 
 with open(r"listPrice.csv", mode = "w+",newline="") as file:
     for key, value in prices.items():
-        file.writelines(key + "," + value)
+        file.writelines(key + "," + value+"\n")
