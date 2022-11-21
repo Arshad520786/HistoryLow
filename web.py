@@ -7,11 +7,11 @@ import re
 
 import os
 
-if not os.path.isfile('./listPrice.csv'):
-    with open(r"listPrice.csv", mode = "w+") as file:
+if not os.path.isfile('./Prices.csv'):
+    with open(r"Prices.csv", mode = "w+") as file:
         pass
 
-with open(r"listPrice.csv", mode = "r") as file:
+with open(r"Prices.csv", mode = "r") as file:
     lines = file.readlines()
     prices = dict()
     for line in lines:
@@ -47,6 +47,6 @@ for url in URLlist:
 
 
 
-with open(r"listPrice.csv", mode = "w+",newline="") as file:
+with open(r"Prices.csv", mode = "w+",newline="") as file:
     for key, value in prices.items():
         file.writelines(key + "," + value+"\n")
