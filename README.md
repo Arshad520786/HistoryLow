@@ -6,7 +6,7 @@ This program reads from a csv formatted file first to aquire previous histroy lo
 
 Then it will start web scraping throught selenium and chrome web driver.
 
-Then it finds the current pricing from the html we got.
+Then it finds the current pricing from the html body we got.
 
 For each current pricing we replace the old ones that is higher than the current pricing. It this process it will also inform if the pricing is at history low.
 
