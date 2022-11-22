@@ -8,7 +8,7 @@ Then it will start web scraping through selenium and chrome web driver.
 
 Then it finds the current pricing from the html body we got.
 
-For each current pricing we replace the old ones that is higher than the current pricing. It this process it will also inform if the pricing is at history low.
+For each current pricing we replace the old ones that is higher than the current pricing. I this process it will also inform if the pricing is at history low.
 
 In the final step, this program writes the information of the new history low prices back to the csv file.
 
